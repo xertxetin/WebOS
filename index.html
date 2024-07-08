@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TV Portal</title>
+<style>
+.portal-item {
+width: 100px;
+height: 100px;
+background-color: #ccc;
+margin: 10px;
+display: inline-block;
+text-align: center;
+line-height: 100px;
+}
+.active {
+background-color: #666;
+}
+</style>
+</head>
+<body>
+<br>
+<h1>BETA / Bu Proje Öğrenim Amaçlıdır!</h1><br>
+
+<div class="portal-item">
+<a href="https://youtube.com/tv">TEST 2 youtube</a>
+</div>
+<div class="portal-item">
+<a href="https://fe.primevideo.com">TEST 3 primevideo</a>
+</div>
+<div class="portal-item">
+<a href="http://smarttv.blutv.com.tr/smarttv/">TEST 4 blutv</a>
+</div>
+<div class="portal-item">
+<a href="https://smarttv.dsmartgo.com.tr/tvapp/foxxum">TEST 5 dsmartgo</a>
+</div>
+
+<script>
+const portalItems = document.querySelectorAll('.portal-item');
+let currentIndex = 0;
+
+function highlightItem(index) {
+portalItems.forEach((item, i) => {
+item.classList.toggle('active', i === index);
+});
+}
+
+function navigateToLink() {
+const currentItem = portalItems[currentIndex];
+const link = currentItem.querySelector('a');
+if (link) {
+window.location.href = link.href;
+}
+}
+
+document.addEventListener('keydown', (event) => {
+switch (event.key) {
+case 'ArrowLeft':
+currentIndex = Math.max(currentIndex - 1, 0);
+break;
+case 'ArrowRight':
+currentIndex = Math.min(currentIndex + 1, portalItems.length - 1);
+break;
+case 'ArrowUp':
+// Buraya dikey gezinme özelliği eklenebilir
+break;
+case 'ArrowDown':
+// Buraya dikey gezinme özelliği eklenebilir
+break;
+case 'Enter':
+navigateToLink();
+break;
+default:
+return;
+}
+highlightItem(currentIndex);
+});
+
+highlightItem(currentIndex);
+</script>
+</body>
+</html>
