@@ -23,7 +23,7 @@
             text-align: center;
         }
         .portal-item {
-            width: 300px; /* Kutu genişliği artırıldı */
+            width: 300px; /* Kutu genişliği */
             height: 220px; /* Kutu yüksekliği */
             background-color: #1e1e1e;
             margin: 10px;
@@ -35,7 +35,7 @@
             overflow: hidden; /* Taşmayı önler */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Gölge efekti */
         }
-        .portal-item:hover {
+        .portal-item:hover, .active { /* Hem hover hem de aktif durumda büyütme efekti */
             background-color: #333;
             transform: scale(1.05);
         }
