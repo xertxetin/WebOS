@@ -1,84 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-<title>TV Portal</title>
-<style>
-.portal-item {
-width: 170px;
-height: 100px;
-background-color: #ccc;
-margin: 10px;
-display: inline-block;
-text-align: center;
-line-height: 100px;
-}
-.active {
-background-color: #666;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .category {
+            margin: 20px 0;
+            font-size: 24px;
+            text-decoration: underline;
+            text-align: center;
+        }
+        .portal-item {
+            width: 300px; /* Kutu genişliği artırıldı */
+            height: 220px; /* Kutu yüksekliği */
+            background-color: #1e1e1e;
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 15px;
+            transition: background-color 0.3s, transform 0.3s, border 0.3s; /* Kenarlık geçiş efekti eklendi */
+            position: relative;
+            overflow: hidden; /* Taşmayı önler */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Gölge efekti */
+        }
+        .portal-item:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+        .active {
+            background-color: #ff5722;
+            border: 3px solid #ffffff; /* Seçili kutunun kenarlığı */
+        }
+        .portal-item img {
+            width: 100%; /* Resmi kutunun genişliğine tam oturacak şekilde ayarlama */
+            height: 100%; /* Resmi kutunun yüksekliğine tam oturacak şekilde ayarlama */
+            object-fit: cover; /* Resmi kutuya göre kırpma */
+            transition: transform 0.3s; /* Logo hover efekti */
+        }
+        .portal-item:hover img {
+            transform: scale(1.05); /* Resmi büyütme efekti */
+        }
+        .portal-item-title {
+            margin-top: 10px; /* Başlık ile logonun arasındaki boşluk */
+            font-size: 18px; /* Başlık yazı boyutu */
+            font-weight: bold; /* Başlık yazı kalınlığı */
+            color: white; /* Yazı rengi */
+        }
+        iframe {
+            width: 100%;
+            height: 90vh;
+            border: none;
+        }
+        .fullscreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+        }
+        .fullscreen iframe {
+            height: 100%;
+        }
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-<br>
-<h1>BETA / Bu Proje Öğrenim Amaçlıdır!</h1><br>
+    <h1>BETA / Bu Proje Öğrenim Amaçlıdır!</h1>
 
-<div class="portal-item">
-<a target="_self" href="https://youtube.com/tv">TEST 2 youtube TV</a>
-</div>
-<div class="portal-item">
-<a target="_self" href="https://youtube.com">TEST 2 youtube Normal</a>
-</div>
-<div class="portal-item">
-<a href="https://fe.primevideo.com">TEST 3 primevideo</a>
-</div>
-<div class="portal-item">
-<a href="http://smarttv.blutv.com.tr/smarttv/">TEST 4 blutv</a>
-</div>
-<div class="portal-item">
-<a href="https://smarttv.dsmartgo.com.tr/tvapp/foxxum">TEST 5 dsmartgo</a>
-</div>
+    <div class="category">Video Akış Hizmetleri</div>
+    <div class="portal-item" data-url="https://youtube.com/tv">
+        <img src="https://i.ytimg.com/vi/CmtxPgI43P0/maxresdefault.jpg" alt="YouTube TV Logo">
+        <div class="portal-item-title">YouTube TV</div>
+    </div>
+    <div class="portal-item" data-url="https://youtube.com">
+        <img src="https://i.ytimg.com/vi/p2vpqKBPj4U/maxresdefault.jpg" alt="YouTube Logo">
+        <div class="portal-item-title">YouTube Normal</div>
+    </div>
 
-<script>
-const portalItems = document.querySelectorAll('.portal-item');
-let currentIndex = 0;
+    <div class="category">Diğer Hizmetler</div>
+    <div class="portal-item" data-url="https://fe.primevideo.com">
+        <img src="https://www.digitaltveurope.com/files/2021/05/prime-video.jpeg" alt="Prime Video Logo">
+        <div class="portal-item-title">Prime Video</div>
+    </div>
+    <div class="portal-item" data-url="http://smarttv.blutv.com.tr/smarttv/">
+        <img src="https://www.diken.com.tr/wp-content/uploads/2023/12/2023-27-12-blu-tv.jpg" alt="Blutv Logo">
+        <div class="portal-item-title">Blutv</div>
+    </div>
+    <div class="portal-item" data-url="https://smarttv.dsmartgo.com.tr/tvapp/foxxum">
+        <img src="https://i.ytimg.com/vi/5Gr-SdBQe4I/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-DoACuAiKAgwIABABGGUgWyg0MA8=&rs=AOn4CLAuqduLtlfk8VDTfMAWzk1Ka5kB2w" alt="Dsmartgo Logo">
+        <div class="portal-item-title">Dsmartgo</div>
+    </div>
 
-function highlightItem(index) {
-portalItems.forEach((item, i) => {
-item.classList.toggle('active', i === index);
-});
-}
+    <div class="fullscreen" id="fullscreen">
+        <iframe id="iframe" src=""></iframe>
+    </div>
 
-function navigateToLink() {
-const currentItem = portalItems[currentIndex];
-const link = currentItem.querySelector('a');
-if (link) {
-window.location.href = link.href;
-}
-}
+    <div class="status-bar" id="status-bar">Geçerli URL: </div>
 
-document.addEventListener('keydown', (event) => {
-switch (event.key) {
-case 'ArrowLeft':
-currentIndex = Math.max(currentIndex - 1, 0);
-break;
-case 'ArrowRight':
-currentIndex = Math.min(currentIndex + 1, portalItems.length - 1);
-break;
-case 'ArrowUp':
-// Buraya dikey gezinme özelliği eklenebilir
-break;
-case 'ArrowDown':
-// Buraya dikey gezinme özelliği eklenebilir
-break;
-case 'Enter':
-navigateToLink();
-break;
-default:
-return;
-}
-highlightItem(currentIndex);
-});
+    <script>
+        const portalItems = document.querySelectorAll('.portal-item');
+        let currentIndex = 0;
 
-highlightItem(currentIndex);
-</script>
+        function highlightItem(index) {
+            portalItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        function openIframe(url) {
+            const iframe = document.getElementById('iframe');
+            iframe.src = url;
+            document.getElementById('fullscreen').style.display = 'block';
+            updateStatusBar(url);
+        }
+
+        function updateStatusBar(url) {
+            const statusBar = document.getElementById('status-bar');
+            statusBar.textContent = 'Geçerli URL: ' + url;
+            statusBar.style.display = 'block';
+        }
+
+        function closeIframe() {
+            const iframe = document.getElementById('iframe');
+            const currentSrc = iframe.src;
+            iframe.src = ''; // Reset iframe
+            document.getElementById('fullscreen').style.display = 'none'; // Hide fullscreen
+            return currentSrc; // Return the previous URL
+        }
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    currentIndex = Math.max(currentIndex - 1, 0);
+                    break;
+                case 'ArrowRight':
+                    currentIndex = Math.min(currentIndex + 1, portalItems.length - 1);
+                    break;
+                case 'ArrowUp':
+                    // Yukarı geçiş
+                    if (currentIndex >= 3) {
+                        currentIndex -= 3; // Üst satıra geç
+                    } else {
+                        currentIndex = Math.max(currentIndex - 1, 0); // Eğer yukarıda bir kutu yoksa bir önceki kutuya geç
+                    }
+                    break;
+                case 'ArrowDown':
+                    // Aşağı geçiş
+                    if (currentIndex < portalItems.length - 3) {
+                        currentIndex += 3; // Alt satıra geç
+                    } else {
+                        currentIndex = Math.min(currentIndex + 1, portalItems.length - 1); // Eğer aşağıda bir kutu yoksa bir sonraki kutuya geç
+                    }
+                    break;
+                case 'Enter':
+                    const currentItem = portalItems[currentIndex];
+                    openIframe(currentItem.getAttribute('data-url'));
+                    break;
+                case 'Escape':
+                    const iframe = document.getElementById('iframe');
+                    if (iframe.src) {
+                        const userConfirmed = confirm('Tam ekrandan çıkmak istediğinize emin misiniz?');
+                        if (userConfirmed) {
+                            closeIframe();
+                        }
+                    }
+                    return;
+                default:
+                    return;
+            }
+            highlightItem(currentIndex);
+        });
+
+        highlightItem(currentIndex);
+    </script>
 </body>
 </html>
