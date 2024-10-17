@@ -30,7 +30,7 @@
             display: inline-block;
             text-align: center;
             border-radius: 15px;
-            transition: background-color 0.3s, transform 0.3s, border 0.3s; /* Kenarlık geçiş efekti eklendi */
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Kenarlık geçiş efekti eklendi */
             position: relative;
             overflow: hidden; /* Taşmayı önler */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Gölge efekti */
@@ -38,10 +38,7 @@
         .portal-item:hover, .active { /* Hem hover hem de aktif durumda büyütme efekti */
             background-color: #333;
             transform: scale(1.05);
-        }
-        .active {
-            background-color: #ff5722;
-            border: 3px solid #ffffff; /* Seçili kutunun kenarlığı */
+            box-shadow: 0 0 15px rgba(255, 87, 34, 0.7); /* Seçili kutunun gölgesi */
         }
         .portal-item img {
             width: 100%; /* Resmi kutunun genişliğine tam oturacak şekilde ayarlama */
